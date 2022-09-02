@@ -14,7 +14,7 @@ void main() {
     binding.framePolicy = LiveTestWidgetsFlutterBindingFramePolicy.fullyLive;
 
     testWidgets('Scrolling test', (tester) async {
-      await tester.pumpWidget(const TestingApp());
+      await tester.pumpWidget(const StarWarsApp());
 
       final listFinder = find.byType(ListView);
 
@@ -28,7 +28,7 @@ void main() {
     });
 
     testWidgets('Favorites operations test', (tester) async {
-      await tester.pumpWidget(const TestingApp());
+      await tester.pumpWidget(const StarWarsApp());
 
       final iconKeys = [
         'icon_0',

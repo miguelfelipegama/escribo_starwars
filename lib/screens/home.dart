@@ -8,32 +8,17 @@ import '../models/favorites.dart';
 import 'favorites.dart';
 
 class HomePage extends StatelessWidget {
-  static String routeName = '/';
+  static String routeName = '/home';
 
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Testing Sample'),
-        actions: <Widget>[
-          TextButton.icon(
-            style: TextButton.styleFrom(primary: Colors.white),
-            onPressed: () {
-              Navigator.pushNamed(context, FavoritesPage.routeName);
-            },
-            icon: const Icon(Icons.favorite_border),
-            label: const Text('Favorites'),
-          ),
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: 100,
-        cacheExtent: 20.0,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        itemBuilder: (context, index) => ItemTile(index),
-      ),
+    return ListView.builder(
+      itemCount: 100,
+      cacheExtent: 20.0,
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      itemBuilder: (context, index) => ItemTile(index),
     );
   }
 }

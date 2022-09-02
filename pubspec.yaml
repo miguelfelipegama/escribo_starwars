@@ -40,6 +40,9 @@ dependencies:
   path: ^1.8.1
   share_plus: ^4.0.9
   equatable: ^2.0.3
+  http: ^0.13.4
+  json_annotation: ^4.4.0
+  json_serializable: ^6.1.5
 
 dev_dependencies:
   flutter_test:
@@ -47,6 +50,7 @@ dev_dependencies:
   integration_test:           # new
     sdk: flutter              # new
   test: ^1.14.4
+  build_runner: ^2.1.8
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
