@@ -9,18 +9,18 @@ import 'screens/favorites.dart';
 import 'screens/home.dart';
 
 void main() {
-  runApp(const TestingApp());
+  runApp(const StarWarsApp());
 }
 
-class TestingApp extends StatelessWidget {
-  const TestingApp({super.key});
+class StarWarsApp extends StatelessWidget {
+  const StarWarsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<Favorites>(
       create: (context) => Favorites(),
       child: MaterialApp(
-        title: 'Testing Sample',
+        title: 'Star Wars Escribo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -28,6 +28,34 @@ class TestingApp extends StatelessWidget {
           HomePage.routeName: (context) => const HomePage(),
           FavoritesPage.routeName: (context) => const FavoritesPage(),
         },
+        home: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+            appBar: AppBar(
+              bottom: const TabBar(
+                tabs: [
+                  Tab(icon: Icon(Icons.movie_filter_rounded), text: 'Filmes'),
+                  Tab(
+                    icon: Icon(Icons.person),
+                    text: 'Personagens',
+                  ),
+                  Tab(
+                    icon: Icon(Icons.favorite_rounded),
+                    text: 'Favoritos',
+                  ),
+                ],
+              ),
+              title: const Text('Tabs Demo'),
+            ),
+            body: const TabBarView(
+              children: [
+                HomePage(),
+                Icon(Icons.directions_bike),
+                FavoritesPage(),
+              ],
+            ),
+          ),
+        ),
         initialRoute: HomePage.routeName,
       ),
     );
