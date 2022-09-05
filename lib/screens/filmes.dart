@@ -4,29 +4,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testing_app/models/filmes.dart';
 import '../models/favorites.dart';
 import 'favorites.dart';
 
 class TelaFilmes extends StatelessWidget {
   static String routeName = '/home';
 
-  const TelaFilmes({super.key});
-
+  const TelaFilmes({super.key, required this.filmes});
+  final List<Filmes> filmes;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: 100,
+      itemCount: filmes.length,
       cacheExtent: 20.0,
       padding: const EdgeInsets.symmetric(vertical: 16),
-      itemBuilder: (context, index) => ItemTile(index),
+      itemBuilder: (context, index) => ItemTile(filmes[index]),
     );
   }
 }
 
 class ItemTile extends StatelessWidget {
-  final int itemNo;
+  final Filmes item;
 
-  const ItemTile(this.itemNo, {super.key});
+  const ItemTile(this.item, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,25 +36,22 @@ class ItemTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.primaries[itemNo % Colors.primaries.length],
-        ),
         title: Text(
-          'Item $itemNo',
-          key: Key('text_$itemNo'),
+          item.title,
+          key: Key('text_$item.release_date'),
         ),
         trailing: IconButton(
-          key: Key('icon_$itemNo'),
-          icon: favoritesList.items.contains(itemNo)
+          key: Key('icon_$item.release_date'),
+          icon: favoritesList.items.contains(item.title)
               ? const Icon(Icons.favorite)
               : const Icon(Icons.favorite_border),
           onPressed: () {
-            !favoritesList.items.contains(itemNo)
-                ? favoritesList.add(itemNo)
-                : favoritesList.remove(itemNo);
+            !favoritesList.items.contains(item.title)
+                ? favoritesList.add(item.title)
+                : favoritesList.remove(item.title);
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content: Text(favoritesList.items.contains(itemNo)
+                content: Text(favoritesList.items.contains(item.title)
                     ? 'Added to favorites.'
                     : 'Removed from favorites.'),
                 duration: const Duration(seconds: 1),
