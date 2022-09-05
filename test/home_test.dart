@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:testing_app/models/favorites.dart';
-import 'package:testing_app/screens/home.dart';
+import 'package:testing_app/screens/filmes.dart';
 
 Widget createHomeScreen() => ChangeNotifierProvider<Favorites>(
       create: (context) => Favorites(),
       child: const MaterialApp(
-        home: HomePage(),
+        home: TelaFilmes(),
       ),
     );
 

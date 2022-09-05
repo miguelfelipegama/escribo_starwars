@@ -24,7 +24,7 @@ class FavoritesPage extends StatelessWidget {
 }
 
 class FavoriteItemTile extends StatelessWidget {
-  final int itemNo;
+  final String itemNo;
 
   const FavoriteItemTile(this.itemNo, {super.key});
 
@@ -33,11 +33,8 @@ class FavoriteItemTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
-        leading: CircleAvatar(
-          backgroundColor: Colors.primaries[itemNo % Colors.primaries.length],
-        ),
         title: Text(
-          'Item $itemNo',
+          itemNo,
           key: Key('favorites_text_$itemNo'),
         ),
         trailing: IconButton(

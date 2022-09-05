@@ -6,16 +6,16 @@ import 'package:flutter/material.dart';
 
 /// The [Favorites] class holds a list of favorite items saved by the user.
 class Favorites extends ChangeNotifier {
-  final List<int> _favoriteItems = [];
+  final List<String> _favoriteItems = [];
 
-  List<int> get items => _favoriteItems;
+  List<String> get items => _favoriteItems;
 
-  void add(int itemNo) {
+  void add(String itemNo) {
     _favoriteItems.add(itemNo);
     notifyListeners();
   }
 
-  void remove(int itemNo) {
+  void remove(String itemNo) {
     _favoriteItems.remove(itemNo);
     notifyListeners();
   }

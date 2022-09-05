@@ -4,16 +4,24 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testing_app/models/filmes.dart';
+import 'package:testing_app/models/personagens.dart';
+import 'package:testing_app/screens/personagens.dart';
 import 'models/favorites.dart';
 import 'screens/favorites.dart';
-import 'screens/home.dart';
+import 'screens/filmes.dart';
 
-void main() {
-  runApp(const StarWarsApp());
+void main() async {
+  final filmes = await getFilmes().then((value) => value.results);
+  final personagens = await getPersonagens().then((value) => value.results);
+  runApp(StarWarsApp(filmes: filmes, personagens: personagens));
 }
 
 class StarWarsApp extends StatelessWidget {
-  const StarWarsApp({super.key});
+  StarWarsApp({super.key, required this.filmes, required this.personagens});
+
+  final List<Filmes> filmes;
+  final List<Personagem> personagens;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +33,9 @@ class StarWarsApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: {
-          HomePage.routeName: (context) => const HomePage(),
+          TelaFilmes.routeName: (context) => TelaFilmes(
+                filmes: filmes,
+              ),
           FavoritesPage.routeName: (context) => const FavoritesPage(),
         },
         home: DefaultTabController(
@@ -47,16 +57,15 @@ class StarWarsApp extends StatelessWidget {
               ),
               title: const Text('Tabs Demo'),
             ),
-            body: const TabBarView(
+            body: TabBarView(
               children: [
-                HomePage(),
-                Icon(Icons.directions_bike),
-                FavoritesPage(),
+                TelaFilmes(filmes: filmes),
+                TelaPersonagens(personagens: personagens),
+                const FavoritesPage(),
               ],
             ),
           ),
         ),
-        initialRoute: HomePage.routeName,
       ),
     );
   }
