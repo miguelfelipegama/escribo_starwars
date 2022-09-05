@@ -4,9 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:testing_app/screens/personagens.dart';
 import 'models/favorites.dart';
 import 'screens/favorites.dart';
-import 'screens/home.dart';
+import 'screens/filmes.dart';
 
 void main() {
   runApp(const StarWarsApp());
@@ -25,7 +26,7 @@ class StarWarsApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         routes: {
-          HomePage.routeName: (context) => const HomePage(),
+          TelaFilmes.routeName: (context) => const TelaFilmes(),
           FavoritesPage.routeName: (context) => const FavoritesPage(),
         },
         home: DefaultTabController(
@@ -49,14 +50,14 @@ class StarWarsApp extends StatelessWidget {
             ),
             body: const TabBarView(
               children: [
-                HomePage(),
-                Icon(Icons.directions_bike),
+                TelaFilmes(),
+                TelaPersonagens(),
                 FavoritesPage(),
               ],
             ),
           ),
         ),
-        initialRoute: HomePage.routeName,
+        initialRoute: TelaFilmes.routeName,
       ),
     );
   }

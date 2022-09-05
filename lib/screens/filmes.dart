@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 import '../models/favorites.dart';
 import 'favorites.dart';
 
-class HomePage extends StatelessWidget {
+class TelaFilmes extends StatelessWidget {
   static String routeName = '/home';
 
-  const HomePage({super.key});
+  const TelaFilmes({super.key});
 
   @override
   Widget build(BuildContext context) {

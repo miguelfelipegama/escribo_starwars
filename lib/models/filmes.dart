@@ -37,20 +37,6 @@ class Filmes {
 }
 
 @JsonSerializable()
-class Personagem {
-  Personagem({
-    required this.name,
-    required this.birth_year,
-  });
-
-  factory Personagem.fromJson(Map<String, dynamic> json) =>
-      _$PersonagemFromJson(json);
-  Map<String, dynamic> toJson() => _$PersonagemToJson(this);
-  String name;
-  String birth_year;
-}
-
-@JsonSerializable()
 class FilmesAPI {
   FilmesAPI({
     required this.results,
@@ -78,4 +64,9 @@ Future<FilmesAPI> getFilmes() async {
       print(e);
     }
   }
+  return FilmesAPI.fromJson(
+    json.decode(
+      await rootBundle.loadString('assets/films.json'),
+    ) as Map<String, dynamic>,
+  );
 }
