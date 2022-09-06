@@ -6,22 +6,31 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:testing_app/models/filmes.dart';
 import 'package:testing_app/models/personagens.dart';
-import 'package:testing_app/screens/personagens.dart';
+import 'package:testing_app/screens/itens.dart';
+import 'package:testing_app/screens/webview.dart';
 import 'models/favorites.dart';
 import 'screens/favorites.dart';
-import 'screens/filmes.dart';
 
 void main() async {
   final filmes = await getFilmes().then((value) => value.results);
+  final List<String> filmesString = [];
+  for (var element in filmes) {
+    filmesString.add(element.title);
+  }
   final personagens = await getPersonagens().then((value) => value.results);
-  runApp(StarWarsApp(filmes: filmes, personagens: personagens));
+  final List<String> presonagensString = [];
+  for (var element in personagens) {
+    presonagensString.add(element.name);
+  }
+  runApp(StarWarsApp(filmes: filmesString, personagens: presonagensString));
 }
 
 class StarWarsApp extends StatelessWidget {
-  StarWarsApp({super.key, required this.filmes, required this.personagens});
+  const StarWarsApp(
+      {super.key, required this.filmes, required this.personagens});
 
-  final List<Filmes> filmes;
-  final List<Personagem> personagens;
+  final List<String> filmes;
+  final List<String> personagens;
 
   @override
   Widget build(BuildContext context) {
@@ -30,42 +39,52 @@ class StarWarsApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Star Wars Escribo',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.blueGrey,
         ),
         routes: {
-          TelaFilmes.routeName: (context) => TelaFilmes(
-                filmes: filmes,
+          TelaItens.routeName: (context) => TelaItens(
+                itens: filmes,
+                origem: true,
               ),
           FavoritesPage.routeName: (context) => const FavoritesPage(),
         },
-        home: DefaultTabController(
-          length: 3,
-          child: Scaffold(
-            appBar: AppBar(
-              bottom: const TabBar(
-                tabs: [
-                  Tab(icon: Icon(Icons.movie_filter_rounded), text: 'Filmes'),
-                  Tab(
-                    icon: Icon(Icons.person),
-                    text: 'Personagens',
-                  ),
-                  Tab(
-                    icon: Icon(Icons.favorite_rounded),
-                    text: 'Favoritos',
-                  ),
+        home: Builder(builder: (context) {
+          return DefaultTabController(
+            length: 3,
+            child: Scaffold(
+              appBar: AppBar(
+                leading: IconButton(
+                  icon: const Icon(Icons.web),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => const WebViewApp()));
+                  },
+                ),
+                bottom: const TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.movie_filter_rounded), text: 'Filmes'),
+                    Tab(
+                      icon: Icon(Icons.person),
+                      text: 'Personagens',
+                    ),
+                    Tab(
+                      icon: Icon(Icons.favorite_rounded),
+                      text: 'Favoritos',
+                    ),
+                  ],
+                ),
+                title: const Text('Lista Star Wars'),
+              ),
+              body: TabBarView(
+                children: [
+                  TelaItens(itens: filmes, origem: false),
+                  TelaItens(itens: personagens, origem: true),
+                  const FavoritesPage(),
                 ],
               ),
-              title: const Text('Tabs Demo'),
             ),
-            body: TabBarView(
-              children: [
-                TelaFilmes(filmes: filmes),
-                TelaPersonagens(personagens: personagens),
-                const FavoritesPage(),
-              ],
-            ),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }

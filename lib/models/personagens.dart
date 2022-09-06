@@ -41,7 +41,6 @@ Future<PersonagemAPI> getPersonagens() async {
   try {
     final response = await http.get(Uri.parse(targetURL));
     if (response.statusCode == 200) {
-      print(response.body);
       return PersonagemAPI.fromJson(
           json.decode(response.body) as Map<String, dynamic>);
     }

@@ -4,27 +4,28 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:testing_app/models/personagens.dart';
 import '../models/favorites.dart';
 
-class TelaPersonagens extends StatelessWidget {
+class TelaItens extends StatelessWidget {
   static String routeName = '/home';
 
-  const TelaPersonagens({super.key, required this.personagens});
-  final List<Personagem> personagens;
+  const TelaItens({super.key, required this.itens, required this.origem});
+  final List<String> itens;
+  final bool origem;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: personagens.length,
+      itemCount: itens.length,
       cacheExtent: 20.0,
       padding: const EdgeInsets.symmetric(vertical: 16),
-      itemBuilder: (context, index) => ItemTile(personagens[index].name),
+      itemBuilder: (context, index) =>
+          ItemTile(Favorite(texto: itens[index], origem: origem)),
     );
   }
 }
 
 class ItemTile extends StatelessWidget {
-  final String itemNo;
+  final Favorite itemNo;
 
   const ItemTile(this.itemNo, {super.key});
 
@@ -36,7 +37,7 @@ class ItemTile extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         title: Text(
-          itemNo,
+          itemNo.texto,
           key: Key('text_$itemNo'),
         ),
         trailing: IconButton(
