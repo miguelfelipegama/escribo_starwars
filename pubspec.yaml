@@ -44,6 +44,7 @@ dependencies:
   json_annotation: ^4.6.0
   json_serializable: ^6.1.5
   webview_flutter: ^3.0.4
+  fluttermoji: ^1.0.0
 
 dev_dependencies:
   flutter_test:

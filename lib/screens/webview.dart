@@ -1,5 +1,6 @@
 import 'dart:io'; // Add this import.
 import 'package:flutter/material.dart';
+import 'package:fluttermoji/fluttermoji.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewApp extends StatefulWidget {
@@ -10,7 +11,6 @@ class WebViewApp extends StatefulWidget {
 }
 
 class _WebViewAppState extends State<WebViewApp> {
-  // Add from here ...
   @override
   void initState() {
     if (Platform.isAndroid) {
@@ -18,13 +18,14 @@ class _WebViewAppState extends State<WebViewApp> {
     }
     super.initState();
   }
-  // ... to here.
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [IconButton(icon: FluttermojiCircleAvatar(), onPressed: null)],
         leading: IconButton(
+          color: Colors.green,
           icon: const Icon(Icons.web),
           onPressed: () {
             Navigator.of(context).pop();

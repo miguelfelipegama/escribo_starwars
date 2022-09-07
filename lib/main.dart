@@ -3,9 +3,11 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:fluttermoji/fluttermoji.dart';
 import 'package:provider/provider.dart';
 import 'package:testing_app/models/filmes.dart';
 import 'package:testing_app/models/personagens.dart';
+import 'package:testing_app/screens/editor_fluttermoji.dart';
 import 'package:testing_app/screens/itens.dart';
 import 'package:testing_app/screens/webview.dart';
 import 'models/favorites.dart';
@@ -53,6 +55,16 @@ class StarWarsApp extends StatelessWidget {
             length: 3,
             child: Scaffold(
               appBar: AppBar(
+                actions: [
+                  IconButton(
+                    icon: FluttermojiCircleAvatar(),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const EmojiEditor()));
+                    },
+                  )
+                ],
                 leading: IconButton(
                   icon: const Icon(Icons.web),
                   onPressed: () {
