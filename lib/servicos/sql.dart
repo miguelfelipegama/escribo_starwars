@@ -7,7 +7,7 @@ import 'package:path/path.dart' show join;
 import 'package:testing_app/models/favorites.dart';
 import 'constants_exceptions.dart';
 
-class FavoritestesService {
+class FavoritesService {
   Database? _db;
 
   List<Favorite> _favorites = [];
@@ -16,12 +16,11 @@ class FavoritestesService {
 
   late final StreamController<List<Favorite>> _favoritesStreamController;
 
-  static final FavoritestesService _shared =
-      FavoritestesService._sharedIsntance();
+  static final FavoritesService _shared = FavoritesService._sharedIsntance();
 
-  factory FavoritestesService() => _shared;
+  factory FavoritesService() => _shared;
 
-  FavoritestesService._sharedIsntance() {
+  FavoritesService._sharedIsntance() {
     _favoritesStreamController = StreamController<List<Favorite>>.broadcast(
       onListen: () {
         _favoritesStreamController.sink.add(_favorites);
@@ -64,9 +63,7 @@ class FavoritestesService {
   Future<Favorite> createFavorite({required Favorite favorito}) async {
     final db = _getDatabaseOrThrow();
     await _ensureDbIsOpen();
-    const text = '';
-
-    final favoriteId = await db.insert(tabelaFavoritos, {
+    await db.insert(tabelaFavoritos, {
       favTypeColumn: favorito.origem ? 1 : 0,
       favTextColumn: favorito.texto,
     });
