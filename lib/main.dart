@@ -1,7 +1,3 @@
-// Copyright 2020 The Flutter Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermoji.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +6,12 @@ import 'package:testing_app/models/personagens.dart';
 import 'package:testing_app/screens/editor_fluttermoji.dart';
 import 'package:testing_app/screens/itens.dart';
 import 'package:testing_app/screens/webview.dart';
+import 'package:testing_app/servicos/sql.dart';
 import 'models/favorites.dart';
 import 'screens/favorites.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final filmes = await getFilmes().then((value) => value.results);
   final List<String> filmesString = [];
   for (var element in filmes) {
@@ -24,20 +22,32 @@ void main() async {
   for (var element in personagens) {
     presonagensString.add(element.name);
   }
-  runApp(StarWarsApp(filmes: filmesString, personagens: presonagensString));
+  await FavoritesService().open();
+  final List<Favorite> favoritos =
+      await FavoritesService().getAllFavorites().then(
+            (value) => value.toList(),
+          );
+  runApp(StarWarsApp(
+      filmes: filmesString,
+      personagens: presonagensString,
+      favoritos: favoritos));
 }
 
 class StarWarsApp extends StatelessWidget {
   const StarWarsApp(
-      {super.key, required this.filmes, required this.personagens});
+      {super.key,
+      required this.filmes,
+      required this.personagens,
+      required this.favoritos});
 
   final List<String> filmes;
   final List<String> personagens;
+  final List<Favorite> favoritos;
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<Favorites>(
-      create: (context) => Favorites(),
+      create: (context) => Favorites(itens: favoritos),
       child: MaterialApp(
         title: 'Star Wars Escribo',
         theme: ThemeData(

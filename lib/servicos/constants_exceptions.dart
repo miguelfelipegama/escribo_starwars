@@ -1,22 +1,19 @@
 const idColumn = 'id';
-const emailColumn = 'email';
-const userIdColumn = 'user_id';
-const textColumn = 'text';
-const isSyncedtoCloudColumn = 'is_synced_with_cloud';
-const dbName = 'notes.db';
-const noteTable = 'note';
-const userTable = 'user';
-const createUserTable = '''CREATE TABLE IF NOT EXISTS "user" (
+const favTextColumn = 'texto';
+const favTypeColumn = 'tipo';
+const avatarColumn = 'avatar';
+const dbName = 'starwars.db';
+const tabelaFavoritos = 'favoritos';
+const tabelaAvatar = 'avatar';
+const criarTabelaAvatar = '''CREATE TABLE IF NOT EXISTS "avatar" (
         "id" INTEGER NOT NULL,
-        "email" TEXT NOT NULL UNIQUE,
+        "avatar" TEXT NOT NULL UNIQUE,
         PRIMARY KEY("id" AUTOINCREMENT)
       ); ''';
-const createNoteTable = ''' CREATE TABLE IF NOT EXISTS "note" (
+const criarTabelaFavoritos = ''' CREATE TABLE IF NOT EXISTS "favoritos" (
          "id"	INTEGER NOT NULL,
-         "user_id"	INTEGER NOT NULL,
-         "text"	TEXT,
-         "is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
-         FOREIGN KEY("user_id") REFERENCES "user"("id"),
+         "texto"	TEXT NOT NULL,
+         "tipo"	INTEGER NOT NULL DEFAULT 0,
          PRIMARY KEY("id" AUTOINCREMENT)
        ); ''';
 
